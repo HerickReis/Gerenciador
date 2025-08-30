@@ -22,11 +22,6 @@ Aplicativo Flutter simples para registrar vendas, pagamentos e gerar QR Code par
 4. **Execute**
    - Conecte um dispositivo ou inicie um emulador.
    - Clique em `Run` para compilar e instalar o app.
-5. **Gerar APK de release**
-   ```bash
-   flutter build apk
-   ```
-   O arquivo estará em `build/app/outputs/flutter-apk/app-release.apk`.
 
 ## Principais funcionalidades
 - Cadastro automático de clientes ao registrar uma venda
