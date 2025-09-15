@@ -18,13 +18,24 @@ class DevedoresApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Devedores',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
-        useMaterial3: true,
-      ),
-      home: HomePage(app: appState),
+    return AnimatedBuilder(
+      animation: appState,
+      builder: (context, _) {
+        return MaterialApp(
+          title: 'Devedores',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
+            useMaterial3: true,
+          ),
+          darkTheme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.brown, brightness: Brightness.dark),
+            useMaterial3: true,
+          ),
+          themeMode: appState.themeMode,
+          home: HomePage(app: appState),
+        );
+      },
     );
   }
 }

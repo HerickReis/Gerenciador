@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'package:flutter/material.dart';
 
 import 'models.dart';
@@ -7,11 +8,20 @@ class AppState extends ChangeNotifier {
   final Repo repo;
   AppState(this.repo) {
     clientes = repo.loadClientes();
+    _atualizarNomesExistentes();
+    themeMode = repo.themeMode;
   }
 
   List<Cliente> clientes = [];
+  late ThemeMode themeMode;
 
-  List<String> get nomesExistentes => clientes.map((e) => e.nome).toList()..sort();
+  List<String> _nomesExistentes = [];
+  UnmodifiableListView<String> get nomesExistentes =>
+      UnmodifiableListView(_nomesExistentes);
+
+  void _atualizarNomesExistentes() {
+    _nomesExistentes = clientes.map((e) => e.nome).toList()..sort();
+  }
 
   bool existeNome(String nome) =>
       clientes.any((c) => c.nome.toLowerCase().trim() == nome.toLowerCase().trim());
@@ -37,6 +47,7 @@ class AppState extends ChangeNotifier {
       precoUnitario: precoUnitario,
     ));
     await repo.saveClientes(clientes);
+    _atualizarNomesExistentes();
     notifyListeners();
   }
 
@@ -61,11 +72,18 @@ class AppState extends ChangeNotifier {
   Future<void> removerCliente(Cliente c) async {
     clientes.removeWhere((x) => x.id == c.id);
     await repo.saveClientes(clientes);
+    _atualizarNomesExistentes();
     notifyListeners();
   }
 
   Future<void> editarPix({required String key, required String nome}) async {
     await repo.setPix(key: key, nome: nome);
+    notifyListeners();
+  }
+
+  Future<void> setThemeMode(ThemeMode mode) async {
+    themeMode = mode;
+    await repo.setThemeMode(mode);
     notifyListeners();
   }
 
