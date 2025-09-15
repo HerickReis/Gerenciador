@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../app_state.dart';
 import '../dialogs/add_pagamento_dialog.dart';
 import '../dialogs/add_venda_dialog.dart';
-import '../models.dart';
 import '../utils.dart';
 import 'client_page.dart';
 import 'settings_page.dart';

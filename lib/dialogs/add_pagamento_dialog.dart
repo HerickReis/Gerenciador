@@ -33,7 +33,7 @@ class _AddPagamentoDialogState extends State<AddPagamentoDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             DropdownButtonFormField<String>(
-              value: _clienteSel,
+              initialValue: _clienteSel,
               items: widget.app.clientes
                   .map((c) => DropdownMenuItem(value: c.nome, child: Text(c.nome)))
                   .toList(),
@@ -44,7 +44,7 @@ class _AddPagamentoDialogState extends State<AddPagamentoDialog> {
             const SizedBox(height: 8),
             TextFormField(
               controller: _valorCtrl,
-              decoration: const InputDecoration(labelText: 'Valor (R$)'),
+              decoration: const InputDecoration(labelText: 'Valor (RS)'),
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               validator: (v) {
                 final x = double.tryParse((v ?? '').replaceAll(',', '.'));

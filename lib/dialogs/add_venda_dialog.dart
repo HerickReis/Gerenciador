@@ -93,7 +93,7 @@ class _AddVendaDialogState extends State<AddVendaDialog> {
               const SizedBox(height: 8),
               TextFormField(
                 controller: _precoCtrl,
-                decoration: const InputDecoration(labelText: 'Preço unitário (R$)'),
+                decoration: const InputDecoration(labelText: 'Preço unitário (RS)'),
                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 validator: (v) {
                   final x = double.tryParse((v ?? '').replaceAll(',', '.'));
