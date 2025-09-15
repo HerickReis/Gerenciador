@@ -14,12 +14,14 @@ class _SettingsPageState extends State<SettingsPage> {
   final _form = GlobalKey<FormState>();
   late final TextEditingController _pixKey;
   late final TextEditingController _pixNome;
+  bool _darkMode = false;
 
   @override
   void initState() {
     super.initState();
     _pixKey = TextEditingController(text: widget.app.pixKey);
     _pixNome = TextEditingController(text: widget.app.pixNome);
+    _darkMode = widget.app.themeMode == ThemeMode.dark;
   }
 
   @override
@@ -32,6 +34,12 @@ class _SettingsPageState extends State<SettingsPage> {
           key: _form,
           child: Column(
             children: [
+              SwitchListTile(
+                title: const Text('Tema escuro'),
+                value: _darkMode,
+                onChanged: (v) => setState(() => _darkMode = v),
+              ),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _pixNome,
                 decoration:
@@ -54,6 +62,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   if (!_form.currentState!.validate()) return;
                   await widget.app.editarPix(
                       key: _pixKey.text.trim(), nome: _pixNome.text.trim());
+                  await widget.app
+                      .setThemeMode(_darkMode ? ThemeMode.dark : ThemeMode.light);
                   if (!mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Configurações salvas.')));
